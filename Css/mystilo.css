@@ -1,0 +1,92 @@
+/* CSS Document */
+
+
+
+#tor tr:nth-child(odd)
+{
+	height: 50px;
+}
+
+#ant tr:nth-child(odd)
+{
+	height: 50px;
+	background: #E82023;
+}
+
+
+/*#ta{
+	width: 80%;
+	
+}*/
+
+
+
+
+
+
+th {
+  color:#D5DDE5;;
+  background:  #34495e;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-size:15px;
+  height:40px;
+  font-weight: 100;
+  padding:24px;
+  text-align:left;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+}
+
+#b{
+	 border-radius: 8px 0px 0px 0px;
+	}
+	
+	#b1{
+	 border-radius: 0px 8px 0px 0px;
+	}
+	
+	
+#j{
+	height:40px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	/*background: -webkit-gradient(left right, left left, from( #34495e ), to(#fff));*/
+	background: linear-gradient( 90deg, #5d6d7e ,  #5d6d7e, #fff);
+	color:#fff;
+	font-size:12px;
+	text-transform: uppercase;
+	width:65%;
+	}
+
+#le{
+	color: #283747 ;
+	font-family: Arial, Helvetica, Sans-serif;
+	font-weight: bold; 
+font-style: italic;
+	}
+
+
+.nom{
+	font-family: 'Carter One', cursive;
+	font-size: 25px;
+
+}
+
+.sub{
+	font-family: 'Concert One', cursive;
+	font-size: 20px;
+}
+
+
+#color1{
+	background:    #2980b9;
+	
+}
+#color2{
+	background:    #707b7c ;
+	
+}
+#color3{
+	background:    #34495e ;
+	
+}

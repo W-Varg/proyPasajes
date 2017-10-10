@@ -1,0 +1,59 @@
+.a{
+	padding: 0;
+	background-color:#FFA239;
+	height: 600px;
+}
+.nombres{
+	
+	height: 75px;                       
+}
+.a1{
+	background-color: #F57708;
+}
+.g{
+	color: white;
+}
+img{
+	height: 75px;
+}
+.per{
+	height: 250px;
+	padding: 0;
+	margin: 0;
+}
+.perfil{
+	
+	height: 250px;
+}
+.puntaje{
+	
+	background-color: #F5D87A;
+	height: 185px;
+}
+.rojo{
+	height: 50px;
+	background-color: red;
+}
+.amarillo{
+	height: 50px;
+	background-color: yellow;
+}
+.tar{
+
+}
+p{color: white;}
+
+@media screen and (max-width: 768px) {
+	body{
+		border:0;
+		margin: 0 0 0 0;
+		padding: 0;
+	}
+	.nombres{
+		height: 50px;
+	}
+	img{
+	height: 50px;
+}
+
+}
