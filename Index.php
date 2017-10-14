@@ -1,10 +1,51 @@
+<?php
+include 'conexion.php';
+$conect = new Connection();
+   session_start();
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form 
+      
+      $myusername = 'varg'; //mysqli_real_escape_string($db,$_POST['username']);
+      $mypassword = '123456';//mysqli_real_escape_string($db,$_POST['password']); 
+      
+      $sql = "SELECT id FROM usuarios WHERE username = '$myusername' and password = '$mypassword'";
+      echo $sql.'<br>';
+      $result = mysql_query($sql);
+      $row = mysql_fetch_array($result);
+      $active = $row['id'];
+      
+      $count = mysql_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+    
+      if($count == 1) {
+         //session_register("myusername");
+         $_SESSION['login_user'] = $myusername;
+         
+         header("location: administracion.php");
+      }else {
+         $error = " Tus datos no son correctos";
+      }
+   }
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reg_Bus</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>index</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="Css/css.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!--link rel="stylesheet" href="Css/css.css">
   <link rel="stylesheet" href="Css/font-awesome.min.css">
   <link rel='stylesheet' href='Css/w3.css'>
   <link rel="stylesheet" href="Css/w3-theme-blue-grey.css">
@@ -12,146 +53,119 @@
 	<link href="Css/boostraps/bootstrap.min.css" rel="stylesheet">
 	<link href="Css/boostraps/bootstrap-theme.min.css" rel="stylesheet">
 	 <link href="Css/boostraps/http _getbootstrap.com_examples_signin_signin.css" rel="stylesheet">
-	 <link rel="stylesheet" type="text/css" href="csscod/menu.css">
+	 <link rel="stylesheet" type="text/css" href="csscod/menu.css"-->
 </head>
 <body>
-	<div class="row affix-row">
-    <div class="col-sm-3 col-md-2 affix-sidebar">
-		<div class="sidebar-nav">
-  <div class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>f
       </button>
-      <span class="visible-xs navbar-brand">Sidebar menu</span>
+      <a class="navbar-brand" href="#">Empresa De Viaje</a>
     </div>
-    <div class="navbar-collapse collapse sidebar-navbar-collapse">
-      <ul class="nav navbar-nav" id="sidenav01">
-        <li class="active">
-          <a href="#" data-toggle="collapse" data-target="#toggleDemo0" data-parent="#sidenav01" class="collapsed">
-          <h4>
-          Control Panel
-          <br>
-          <small>IOSDSV <span class="caret"></span></small>
-          </h4>
-          </a>
-          <div class="collapse" id="toggleDemo0" style="height: 0px;">
-            <ul class="nav nav-list">
-              <li><a href="#">ProfileSubMenu1</a></li>
-              <li><a href="#">ProfileSubMenu2</a></li>
-              <li><a href="#">ProfileSubMenu3</a></li>
-            </ul>
-          </div>
-        </li>
-        <li>
-          <a href="#" data-toggle="collapse" data-target="#toggleDemo" data-parent="#sidenav01" class="collapsed">
-          <span class="glyphicon glyphicon-cloud"></span> Submenu 1 <span class="caret pull-right"></span>
-          </a>
-          <div class="collapse" id="toggleDemo" style="height: 0px;">
-            <ul class="nav nav-list">
-              <li><a href="#">Submenu1.1</a></li>
-              <li><a href="#">Submenu1.2</a></li>
-              <li><a href="#">Submenu1.3</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="active">
-          <a href="#" data-toggle="collapse" data-target="#toggleDemo2" data-parent="#sidenav01" class="collapsed">
-          <span class="glyphicon glyphicon-inbox"></span> Submenu 2 <span class="caret pull-right"></span>
-          </a>
-          <div class="collapse" id="toggleDemo2" style="height: 0px;">
-            <ul class="nav nav-list">
-              <li><a href="#">Submenu2.1</a></li>
-              <li><a href="#">Submenu2.2</a></li>
-              <li><a href="#">Submenu2.3</a></li>
-            </ul>
-          </div>
-        </li>
-        <li><a href="#"><span class="glyphicon glyphicon-lock"></span> INICIO</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-calendar"></span> PROGRAMAR <span class="badge pull-right">42</span></a></li>
-        <li><a href="VistaPasajes.php"><span class="glyphicon glyphicon-cog"></span> COMPRAR</a></li>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active" ><a href="#">Home</a></li>
+        <li><a href="#">Link</a></li>
+        <!-- menu despegable con opciones-->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">opciones <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="">Action</a></li>
+                <li><a href="">accion 2</a></li>
+                <li><a href="">accion 3</a></li>
+                  <li class="divider"></li>
+                <li><a href="">otro link aqui</a></li>
+                <li class="divider"></li>
+                <li><a href="">ayuda</a></li>
+              </ul>
+            </li>
       </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </div>
-	</div>
+      <form class="navbar-form navbar-left" role="search">
+      
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Buscar">
+          </div>
+          <button type="submit" class="btn btn-default">Enviar</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+              <!--a class="dropdown-toggle" data-toggle="modal" data-target="#ModalRegistrarse">registrarse</a-->
+            </li>
+   
+        
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="modal" data-target="#ModalIngresar">Login</a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+ <!--este es el modal de ingresar-->
+<div class="modal fade" id="ModalIngresar" >
+<div class="modal-dialog">
+<div class="modal-content">
+      <!---emcabezado de modal-->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">cerrar</span>
+          </button>
+          <h2 class="modal-title">Cuenta Personal</h2> 
+        </div>
+        <!--contenido de la ventana-->
+        <div class="modal-body">
+         <form class="form" method="Post">
+            <div class="form-group"><input type="text" name="username" class="form-control" placeholder="Nombre de Usuario"></div><br>
+            <div class="form-group"><input type="password" class="form-control" name="password" placeholder="Contraseña"></div>
+            <div class="form-group"> <button type="submit" class="btn btn-primary btn-block">Ingresar</button></div>
+          </form>
+        </div>
+        <!--footer del modal-->
+         <div class="modal-footer"><h4>olvidaste tu Contraseña??</h4>
+            <button type="button" class="btn btn-default btn-block">Recuperar</button>
+         </div>
+</div>
+</div>
+</div><!--final modal login -->
+
+
 	<div class="col-sm-9 col-md-10 affix-content">
-		<div class="container">
-			
-				<div class="page-header">
-	<h3><span class="glyphicon glyphicon-th-list"></span> Programar Viajes</h3>
-  </div>
-  <br>
-    <div class="col-md-6 row">
-    <div class="w3-col m11">
-          <div class="w3-container w3-card-4 w3-white w3-round "><br>
-            <h4>REGISTRO DE VIAJE</h4>
-            <hr class="w3-clear">
-        <form method="POST" action="Index.php">
-        <table border="0" id="tor">
-          <tr>
-            <td> Destino <lu class="por">*</lu>:</td>
-            <td><input name="Destino" class="form-control" type="text" required="">
-            </td>
-          </tr>
-          <tr>
-            <td> Fecha <lu class="por">*</lu>:</td>
-            <td><input name="Fecha" class="form-control" type="date" required="">
-            </td>
-          </tr>
-          <tr>
-            <td> Hora <lu class="por">*</lu>:</td>
-            <td><input name="Hora" class="form-control" type="time" required="">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Placa Bus <lu class="por">*</lu>:
-            </td>
-            <td>
-                <input type="text" class="form-control" name="Placa" required="">
-            </td>
-          </tr>
-          <tr>
-            <td> Nro. Tramos <lu class="por">*</lu>:</td>
-            <td><input name="Tramos" class="form-control" type="text" required="">
-            </td>
-          </tr>
-          <tr>
+	<div class="table-responsive col-md-6">
+     <h4>Lisra de Tramos</h4>
+    <table class="table table-hover">
+      <tr class="active">
+        <td>Origen </td>
+        <td>Destino  </td>
+        <td>Precio Bs.</td>
+        <td>Hora </td>
+        <td>fecha </td>
+        <td>accion </td>
+
+      </tr>
+      <?php
+      $result= mysql_query("select * from tramos");
+      while($row=mysql_fetch_array($result)){ ?>
+        <tr>
+          <td><?php echo $row["Origen"]; ?></td>
+          <td><?php echo $row["Destino"]; ?></td>
+          <td><?php echo $row["Precio"]; ?></td>
           
-            <td><center><input type="submit" class="w3-btn w3-theme-d1 w3-margin-bottom" value="registrar"> </center></td>
-            <td><center><input type="submit" class="w3-btn w3-theme-d1 w3-margin-bottom" value="borrar"> </center></td>
-          </tr>
-        </table>
-        </form>
-      </div>
-    </div>
-  </div>
-
-<?php 
-if (empty($_POST['Tramos'])) {exit;}
-else{ $n=$_POST['Tramos'];
-    $Destino=$_POST['Destino'];
-    $Fecha=$_POST['Fecha'];
-    $Hora=$_POST['Hora'];
-    $Placa=$_POST['Placa'];
-    $con = mysql_connect('localhost','root','');
-    mysql_select_db("venta_pasajes", $con) or die ("No se pudo conectar a la base de datos");
-    $insertar=("INSERT INTO viaje VALUES ('','$Destino', '$Fecha', '$Hora', '$Placa', $n)");
-    $resultado= mysql_query($insertar);
-      if (!$resultado) {
-        echo '<script>alert("ERROR: VUELVA A INSERTAR LOS DATOS");
-            window.history.go(-1);</script>';
-      }else{
-      echo "<script>alert('REGISTRADO EXITOSAMENTE');
-          location.href='regTramos.php'</script>";
+          <td><?php echo $row["hora_salida"]; ?></td>
+          <td><?php echo $row["fecha"]; ?></td>
+          <td><a href="vistaPasajes.php?var=<?php echo $row['IdTramos']?>" >reservar</a></td>
+        </tr>
+      <?php
       }
-    }
-?>
-  
-
+      ?>
+    </table>
+  </div>
+  </div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
